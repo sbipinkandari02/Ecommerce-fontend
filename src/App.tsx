@@ -12,6 +12,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { getUser } from "./redux/api/userAPI";
 import { RootState } from "./redux/store";
 import ProtectedRoute from "./components/protected-route";
+import NotFound from "./pages/not-found";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
@@ -120,6 +121,7 @@ const App = () => {
               element={<TransactionManagement />}
             />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
       <Toaster position="bottom-center" />
