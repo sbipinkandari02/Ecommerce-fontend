@@ -1,8 +1,12 @@
 import {
+  Bar,
   CartItem,
+  Line,
   Order,
+  Pie,
   Product,
   ShippingInfo,
+  Stats,
   User,
 } from "./types";
 
@@ -98,9 +102,30 @@ export type NewOrderRequest = {
   discount: number;
   total: number;
   user: string;
+  description?: string;
 };
 
 export type UpdateOrderRequest = {
   userId: string;
   orderId: string;
+};
+
+export type StatsResponse = {
+  success: boolean;
+  stats: Stats;
+};
+
+export type PieResponse = {
+  success: boolean;
+  charts: Pie;
+};
+
+export type BarResponse = {
+  success: boolean;
+  charts: Bar;
+};
+
+export type LineResponse = {
+  success: boolean;
+  charts: Line;
 };
