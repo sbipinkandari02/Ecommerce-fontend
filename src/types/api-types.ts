@@ -98,6 +98,7 @@ export type NewOrderRequest = {
   discount: number;
   total: number;
   user: string;
+  description?: string;
 };
 
 export type UpdateOrderRequest = {
