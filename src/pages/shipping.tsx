@@ -42,6 +42,7 @@ const Shipping = () => {
           items: cartItems,
           shippingInfo,
           coupon,
+          amount: 1000, // temporary amount 
         },
         {
           headers: {
