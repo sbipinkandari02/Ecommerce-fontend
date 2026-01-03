@@ -15,6 +15,9 @@ type ProductsProps = {
   handler: (cartItem: CartItem) => string | undefined;
 };
 
+const DUMMY_IMAGE =
+  "assets/images/dummy-product-image-300x300.jpg";
+
 const ProductCard = ({
   productId,
   price,
@@ -23,20 +26,33 @@ const ProductCard = ({
   stock,
   handler,
 }: ProductsProps) => {
+  const imageUrl =
+    photos?.length > 0 && photos[0]?.url
+      ? transformImage(photos[0].url, 400)
+      : DUMMY_IMAGE;
+
   return (
     <div className="product-card">
-      <img src={transformImage(photos?.[0]?.url, 400)} alt={name} />
+      <img
+        src={imageUrl}
+        alt={name}
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).src = DUMMY_IMAGE;
+        }}
+      />
+
       <p>{name}</p>
       <span>₹{price}</span>
 
       <div>
         <button
+          disabled={stock < 1}
           onClick={() =>
             handler({
               productId,
               price,
               name,
-              photo: photos[0].url,
+              photo: photos?.[0]?.url || DUMMY_IMAGE,
               stock,
               quantity: 1,
             })

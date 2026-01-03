@@ -6,6 +6,7 @@ import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { useNewProductMutation } from "../../../redux/api/productAPI";
 import { RootState } from "../../../redux/store";
 import { responseToast } from "../../../utils/features";
+import { useFileHandler } from "../../../hooks/useFileHandler";
 
 const NewProduct = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
@@ -21,7 +22,7 @@ const NewProduct = () => {
   const [newProduct] = useNewProductMutation();
   const navigate = useNavigate();
 
-  // const photos = useFileHandler("multiple", 10, 5);
+  const photos = useFileHandler("multiple", 10, 5);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +30,7 @@ const NewProduct = () => {
     try {
       if (!name || !price || stock < 0 || !category || !user?._id) return;
 
-      // if (!photos.file || photos.file.length === 0) return;
+      if (!photos.file || photos.file.length === 0) return;
 
       const formData = new FormData();
 
@@ -40,9 +41,9 @@ const NewProduct = () => {
 
       formData.set("category", category);
 
-      // photos.file.forEach((file) => {
-      //   formData.append("photos", file);
-      // });
+      photos.file.forEach((file) => {
+        formData.append("photos", file);
+      });
 
       const res = await newProduct({ id: user._id, formData });
 
@@ -114,7 +115,7 @@ const NewProduct = () => {
               />
             </div>
 
-            {/* <div>
+            <div>
               <label>Photos</label>
               <input
                 required
@@ -130,7 +131,7 @@ const NewProduct = () => {
             {photos.preview &&
               photos.preview.map((img, i) => (
                 <img key={i} src={img} alt="New Image" />
-              ))} */}
+              ))}
 
             <button disabled={isLoading} type="submit">
               Create
