@@ -13,6 +13,7 @@ import {
 } from "../../../redux/api/productAPI";
 import { RootState } from "../../../redux/store";
 import { responseToast, transformImage } from "../../../utils/features";
+import { useFileHandler } from "../../../hooks/useFileHandler";
 
 const Productmanagement = () => {
   const { user } = useSelector((state: RootState) => state.userReducer);
@@ -22,7 +23,7 @@ const Productmanagement = () => {
 
   const { data, isLoading, isError } = useProductDetailsQuery(params.id!);
 
-  const { price, name, stock, category, description } = data?.product || {
+  const { price, photos, name, stock, category, description } = data?.product || {
     photos: [],
     category: "",
     name: "",
@@ -42,7 +43,7 @@ const Productmanagement = () => {
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
 
-  // const photosFiles = useFileHandler("multiple", 10, 5);
+  const photosFiles = useFileHandler("multiple", 10, 5);
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,11 +60,11 @@ const Productmanagement = () => {
 
       if (categoryUpdate) formData.set("category", categoryUpdate);
 
-      // if (photosFiles.file && photosFiles.file.length > 0) {
-      //   photosFiles.file.forEach((file) => {
-      //     formData.append("photos", file);
-      //   });
-      // }
+      if (photosFiles.file && photosFiles.file.length > 0) {
+        photosFiles.file.forEach((file) => {
+          formData.append("photos", file);
+        });
+      }
 
       const res = await updateProduct({
         formData,
@@ -110,12 +111,7 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {data?.product._id}</strong>
-              <img
-                src={transformImage(
-                  "https://m.media-amazon.com/images/I/71gn83R0DPL._SX522_.jpg"
-                )}
-                alt="Product"
-              />
+              <img src={transformImage(photos[0]?.url)} alt="Product" />
               <p>{name}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
@@ -178,7 +174,7 @@ const Productmanagement = () => {
                   />
                 </div>
 
-                {/* <div>
+                <div>
                   <label>Photos</label>
                   <input
                     type="file"
@@ -203,7 +199,7 @@ const Productmanagement = () => {
                       />
                     ))}
                   </div>
-                )} */}
+                )}
 
                 <button disabled={btnLoading} type="submit">
                   Update
