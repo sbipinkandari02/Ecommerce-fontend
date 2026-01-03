@@ -121,8 +121,7 @@ const Search = () => {
                 price={i.price}
                 stock={i.stock}
                 handler={addToCartHandler}
-                 // photos={i.photos}
-                 photos={[{url:'https://m.media-amazon.com/images/I/71gn83R0DPL._SX522_.jpg', public_id:'macbook1'}]}
+                 photos={i.photos}
               />
             ))}
           </div>
