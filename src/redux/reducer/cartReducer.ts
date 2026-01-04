@@ -2,9 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CartReducerInitialState } from "../../types/reducer-types";
 import { CartItem, ShippingInfo } from "../../types/types";
 
+const localCart = localStorage.getItem("cartItems")
+  ? JSON.parse(localStorage.getItem("cartItems") as string)
+  : [];
+
 const initialState: CartReducerInitialState = {
   loading: false,
-  cartItems: [],
+  cartItems: localCart,
   subtotal: 0,
   tax: 0,
   shippingCharges: 0,
@@ -34,6 +38,7 @@ export const cartReducer = createSlice({
       if (index !== -1) state.cartItems[index] = action.payload;
       else state.cartItems.push(action.payload);
       state.loading = false;
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     removeCartItem: (state, action: PayloadAction<string>) => {
@@ -42,6 +47,7 @@ export const cartReducer = createSlice({
         (i) => i.productId !== action.payload
       );
       state.loading = false;
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
 
     calculatePrice: (state) => {
@@ -67,7 +73,23 @@ export const cartReducer = createSlice({
     saveShippingInfo: (state, action: PayloadAction<ShippingInfo>) => {
       state.shippingInfo = action.payload;
     },
-    resetCart: () => initialState,
+    resetCart: (state) => {
+      state.cartItems = [];
+      state.subtotal = 0;
+      state.tax = 0;
+      state.shippingCharges = 0;
+      state.discount = 0;
+      state.total = 0;
+      state.coupon = undefined;
+      state.shippingInfo = {
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+        pinCode: "",
+      };
+      localStorage.removeItem("cartItems");
+    },
   },
 });
 
