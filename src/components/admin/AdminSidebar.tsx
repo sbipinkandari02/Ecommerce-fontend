@@ -13,6 +13,7 @@ import {
 } from "react-icons/ri";
 import { Link, Location, useLocation } from "react-router-dom";
 import { IconType } from "react-icons";
+import logo from "../../assets/logo.png";
 
 const AdminSidebar = () => {
   const location = useLocation();
@@ -56,7 +57,19 @@ const AdminSidebar = () => {
             : {}
         }
       >
-        <h2>Logo.</h2>
+        {/* Logo */}
+        <div className="sidebar-logo">
+          <img
+            src={logo}
+            alt="ShopSphere Logo"
+            style={{
+              width: "150px",
+              height: "auto",
+              margin: "1rem",
+              objectFit: "contain",
+            }}
+          />
+        </div>
         <DashboardContainer location={location} />
         <ChartContainer location={location} />
 
