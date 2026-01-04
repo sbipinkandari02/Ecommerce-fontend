@@ -6,7 +6,6 @@ import videoCover from "../assets/videos/cover.mp4";
 import { Skeleton } from "../components/loader";
 import ProductCard from "../components/product-card";
 import toast from "react-hot-toast";
-// import { useDispatch } from "react-redux";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
@@ -139,18 +138,6 @@ const Home = () => {
             More
           </Link>
         </h1>
-
-       {/* <main>
-              <ProductCard
-                productId={'sdf'}
-                name={'MacBook Pro'}
-                price={ 1299}
-                stock={4}
-                handler={() => ''}
-                photos={[{url:'https://m.media-amazon.com/images/I/71gn83R0DPL._SX522_.jpg', public_id:'macbook1'}]}
-              />
-        </main> */}
-
          <main>
           {isLoading ? (
             <>
@@ -171,7 +158,6 @@ const Home = () => {
                 stock={i.stock}
                 handler={addToCartHandler}
                 photos={i.photos}
-                //  photos={[{url:'https://m.media-amazon.com/images/I/71gn83R0DPL._SX522_.jpg', public_id:'macbook1'}]}
               />
             ))
           )}

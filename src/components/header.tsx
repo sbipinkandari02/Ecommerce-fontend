@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaShoppingBag,
@@ -11,6 +11,8 @@ import { User } from "../types/types";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 interface PropsType {
   user: User | null;
@@ -18,12 +20,18 @@ interface PropsType {
 
 const Header = ({ user }: PropsType) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-   const logoutHandler = async () => {
+  const cartItemsCount = useSelector(
+    (state: RootState) => state.cartReducer.cartItems.length
+  );
+
+const logoutHandler = async () => {
     try {
       await signOut(auth);
       toast.success("Sign Out Successfully");
       setIsOpen(false);
+      navigate("/login");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast.error("Sign Out Fail");
@@ -32,14 +40,25 @@ const Header = ({ user }: PropsType) => {
 
   return (
     <nav className="header">
-      <Link onClick={() => setIsOpen(false)} to={"/"}>
+      <Link onClick={() => setIsOpen(false)} to="/">
         HOME
       </Link>
-      <Link onClick={() => setIsOpen(false)} to={"/search"}>
+
+      <Link onClick={() => setIsOpen(false)} to="/search">
         <FaSearch />
       </Link>
-      <Link onClick={() => setIsOpen(false)} to={"/cart"}>
+
+      {/* 🛒 Cart Icon with Badge */}
+      <Link
+        onClick={() => setIsOpen(false)}
+        to="/cart"
+        className="cart-icon-wrapper"
+      >
         <FaShoppingBag />
+
+        {cartItemsCount > 0 && (
+          <span className="cart-badge">{cartItemsCount}</span>
+        )}
       </Link>
 
       {user?._id ? (
@@ -47,6 +66,7 @@ const Header = ({ user }: PropsType) => {
           <button onClick={() => setIsOpen((prev) => !prev)}>
             <FaUser />
           </button>
+
           <dialog open={isOpen}>
             <div>
               {user.role === "admin" && (
@@ -58,6 +78,7 @@ const Header = ({ user }: PropsType) => {
               <Link onClick={() => setIsOpen(false)} to="/orders">
                 Orders
               </Link>
+
               <button onClick={logoutHandler}>
                 <FaSignOutAlt />
               </button>
@@ -65,7 +86,7 @@ const Header = ({ user }: PropsType) => {
           </dialog>
         </>
       ) : (
-        <Link to={"/login"}>
+        <Link to="/login">
           <FaSignInAlt />
         </Link>
       )}
