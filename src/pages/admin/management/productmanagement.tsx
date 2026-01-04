@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-// import { useFileHandler } from "6pp";
 import { FormEvent, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
