@@ -8,7 +8,7 @@ type ProductsProps = {
   photos: {
     url: string;
     public_id: string;
-  }[]; // REQUIRED
+  }[];
   name: string;
   price: number;
   stock: number;
@@ -23,19 +23,14 @@ const ProductCard = ({
   stock,
   handler,
 }: ProductsProps) => {
-  // ✅ image is required – assume backend guarantees it
-  const imageUrl = transformImage(photos[0].url, 400);
-
   return (
     <div className="product-card">
-      <img src={imageUrl} alt={name} />
-
+      <img src={transformImage(photos?.[0]?.url, 400)} alt={name} />
       <p>{name}</p>
       <span>₹{price}</span>
 
       <div>
         <button
-          disabled={stock < 1}
           onClick={() =>
             handler({
               productId,
