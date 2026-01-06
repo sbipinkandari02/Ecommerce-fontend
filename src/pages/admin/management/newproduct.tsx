@@ -48,9 +48,9 @@ const NewProduct = () => {
       const res = await newProduct({ id: user._id, formData });
 
       responseToast(res, navigate, "/admin/product");
-    } catch (error) {
-      console.log(error);
-    } finally {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) { /* empty */ }
+     finally {
       setIsLoading(false);
     }
   };

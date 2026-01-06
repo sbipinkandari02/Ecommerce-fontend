@@ -15,9 +15,6 @@ type ProductsProps = {
   handler: (cartItem: CartItem) => string | undefined;
 };
 
-const DUMMY_IMAGE =
-  "assets/images/dummy-product-image-300x300.jpg";
-
 const ProductCard = ({
   productId,
   price,
@@ -26,20 +23,16 @@ const ProductCard = ({
   stock,
   handler,
 }: ProductsProps) => {
-  const imageUrl =
-    photos?.length > 0 && photos[0]?.url
-      ? transformImage(photos[0].url, 400)
-      : DUMMY_IMAGE;
+  // HARD GUARD — required data
+  if (!photos?.length || !photos[0]?.url) {
+    return null; // or render an error placeholder
+  }
+
+  const imageUrl = transformImage(photos[0].url, 400);
 
   return (
     <div className="product-card">
-      <img
-        src={imageUrl}
-        alt={name}
-        onError={(e) => {
-          (e.currentTarget as HTMLImageElement).src = DUMMY_IMAGE;
-        }}
-      />
+      <img src={imageUrl} alt={name} />
 
       <p>{name}</p>
       <span>₹{price}</span>
@@ -52,7 +45,7 @@ const ProductCard = ({
               productId,
               price,
               name,
-              photo: photos?.[0]?.url || DUMMY_IMAGE,
+              photo: photos[0].url,
               stock,
               quantity: 1,
             })
@@ -68,5 +61,6 @@ const ProductCard = ({
     </div>
   );
 };
+
 
 export default ProductCard;

@@ -1,3 +1,4 @@
+import { ComponentType, Dispatch, ReactElement, SetStateAction } from "react";
 export type User = {
   name: string;
   email: string;
@@ -136,4 +137,37 @@ export type Stats = {
     female: number;
   };
   latestTransaction: LatestTransaction[];
+};
+
+export type CarouselButtonType = ComponentType<{
+    onClick: () => void;
+}>;
+
+export type MyntraCarouselPropsType = {
+    images: string[];
+    darkMode?: boolean;
+    objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    PrevButton: CarouselButtonType;
+    NextButton: CarouselButtonType;
+};
+export type StylishCarouselProps = {
+    images: string[];
+    objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+    imageBg?: string;
+    imageSize?: string[];
+    sideImageSize?: string[];
+};
+export type SliderProps = {
+    images: string[];
+    objectFit?: "cover" | "contain" | "fill" | "none" | "scale-down";
+    PrevIcon?: ReactElement;
+    NextIcon?: ReactElement;
+    bgColor?: string;
+    showNav?: boolean;
+    showDots?: boolean;
+    showThumbnails?: boolean;
+    autoplay?: boolean;
+    autoplayDuration?: number;
+    onClick?: () => void;
 };
