@@ -23,14 +23,23 @@ const ProductCard = ({
   stock,
   handler,
 }: ProductsProps) => {
+  // HARD GUARD — required data
+  if (!photos?.length || !photos[0]?.url) {
+    return null; // or render an error placeholder
+  }
+
+  const imageUrl = transformImage(photos[0].url, 400);
+
   return (
     <div className="product-card">
-      <img src={transformImage(photos?.[0]?.url, 400)} alt={name} />
+      <img src={imageUrl} alt={name} />
+
       <p>{name}</p>
       <span>₹{price}</span>
 
       <div>
         <button
+          disabled={stock < 1}
           onClick={() =>
             handler({
               productId,
@@ -52,5 +61,6 @@ const ProductCard = ({
     </div>
   );
 };
+
 
 export default ProductCard;
