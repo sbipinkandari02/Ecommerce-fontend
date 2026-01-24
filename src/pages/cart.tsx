@@ -17,6 +17,7 @@ import { CartItem } from "../types/types";
 const Cart = () => {
   const { cartItems, subtotal, tax, total, shippingCharges, discount } =
     useSelector((state: RootState) => state.cartReducer);
+    console.log(cartItems,discount); 
   const dispatch = useDispatch();
 
   const [couponCode, setCouponCode] = useState<string>("");
