@@ -55,7 +55,6 @@ const CheckOutForm = () => {
       total,
       user: user?._id as string,
     };
-console.log(orderData);
 
     const { paymentIntent, error } = await stripe.confirmPayment({
       elements,

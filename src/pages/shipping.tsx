@@ -8,9 +8,15 @@ import { saveShippingInfo } from "../redux/reducer/cartReducer";
 import { RootState, server } from "../redux/store";
 
 const Shipping = () => {
-  const { cartItems, coupon } = useSelector(
-    (state: RootState) => state.cartReducer
-  );
+  const {
+    cartItems,
+    subtotal,
+    tax,
+    shippingCharges,
+    discount,
+    total,
+  } = useSelector((state: RootState) => state.cartReducer);
+
   const { user } = useSelector((state: RootState) => state.userReducer);
 
   const navigate = useNavigate();
@@ -41,8 +47,11 @@ const Shipping = () => {
         {
           items: cartItems,
           shippingInfo,
-          coupon,
-          amount: 1000, // temporary amount 
+          subtotal,
+          tax,
+          shippingCharges,
+          discount,
+          amount: total, // ✅ SAME as cart total
         },
         {
           headers: {
@@ -64,7 +73,7 @@ const Shipping = () => {
     if (cartItems.length <= 0) {
       navigate("/cart");
     }
-  }, [cartItems]);
+  }, [cartItems, navigate]);
 
   return (
     <div className="shipping">
@@ -120,6 +129,15 @@ const Shipping = () => {
           value={shippingInfo.pinCode}
           onChange={changeHandler}
         />
+
+        {/* 💰 Price Summary (SAME AS CART) */}
+        <div className="price-summary">
+          <p>Subtotal: ₹{subtotal}</p>
+          <p>Shipping Charges: ₹{shippingCharges}</p>
+          <p>Tax: ₹{tax}</p>
+          <p className="red">Discount: -₹{discount}</p>
+          <h3>Total Payable: ₹{total}</h3>
+        </div>
 
         <button type="submit">Pay Now</button>
       </form>
