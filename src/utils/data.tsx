@@ -1,0 +1,119 @@
+const clients = [
+  {
+    src: "https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg",
+    alt: "react",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg",
+    alt: "node",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg",
+    alt: "mongodb",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg",
+    alt: "express",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/js_redux/js_redux-ar21.svg",
+    alt: "redux",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-ar21.svg",
+    alt: "typescript",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/sass-lang/sass-lang-ar21.svg",
+    alt: "sass",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/firebase/firebase-ar21.svg",
+    alt: "firebase",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/figma/figma-ar21.svg",
+    alt: "figma",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/github/github-ar21.svg",
+    alt: "github",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/docker/docker-ar21.svg",
+    alt: "Docker",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/kubernetes/kubernetes-ar21.svg",
+    alt: "Kubernetes",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/nestjs/nestjs-ar21.svg",
+    alt: "Nest.js",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/graphql/graphql-ar21.svg",
+    alt: "GraphQL",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/jestjsio/jestjsio-ar21.svg",
+    alt: "Jest",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/redis/redis-ar21.svg",
+    alt: "Redis",
+  },
+
+  {
+    src: "https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21.svg",
+    alt: "PostgreSQL",
+  },
+  {
+    src: "https://www.vectorlogo.zone/logos/jenkins/jenkins-ar21.svg",
+    alt: "Jenkins",
+  },
+];
+
+const banners = [
+  {
+    id: 1,
+    src: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1350&q=80",
+    alt: "Fashion Banner 1",
+    text: {
+      title: "Upgrade Your Style",
+      subtitle: "Premium fashion curated for modern lifestyle",
+      cta: "Shop Now",
+      link: "/search",
+    },
+  },
+  {
+    id: 2,
+    src: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1350&q=80",
+    alt: "Fashion Banner 2",
+    text: {
+      title: "New Arrivals",
+      subtitle: "Check out the latest trends",
+      cta: "Explore",
+      link: "/search",
+    },
+  },
+  {
+    id: 3,
+    src: "https://images.unsplash.com/photo-1495121605193-b116b5b09a6f?auto=format&fit=crop&w=1350&q=80",
+    alt: "Fashion Banner 3",
+    text: {
+      title: "Exclusive Collection",
+      subtitle: "Be bold, be stylish, be you",
+      cta: "Discover",
+      link: "/search",
+    },
+  },
+];
+
+
+export { clients, banners };

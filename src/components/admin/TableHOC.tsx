@@ -106,10 +106,13 @@ function TableHOC<T extends object>(
           </thead>
 
           <tbody {...getTableBodyProps()}>
-            {page.map((row: Row<T>) => {
+            {page.map((row: Row<T>, index: number) => {
               prepareRow(row);
+              const rowData = row.original as Record<string, unknown>;
+              // Use _id if available, otherwise use index as fallback
+              const rowId = String(rowData?._id ?? `row-${index}`);
               return (
-                <tr {...row.getRowProps()} key={row.id}>
+                <tr {...row.getRowProps()} key={rowId}>
                   {row.cells.map((cell: Cell<T>) => (
                     <td {...cell.getCellProps()} key={cell.column.id}>
                       {cell.render("Cell")}

@@ -1,6 +1,7 @@
 .dashboard-app-container {
-  background-color: white;
+  background-color: var(--bg-primary);
   padding: 4rem;
+  color: var(--text-primary);
 
   > section {
     @include flex(column, center, center, 2rem);
@@ -11,6 +12,7 @@
         font-size: 2rem;
         font-weight: 300;
         text-align: center;
+        color: var(--text-primary);
       }
 
       > button {
@@ -65,18 +67,22 @@
       width: 100%;
       > input {
         padding: 1rem;
-        border: 1px solid rgba(0, 0, 0, 0.359);
+        border: 1px solid var(--border-color);
         outline: none;
         border-radius: 5px;
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
       }
 
       > fieldset {
         padding: 1rem;
-        border: 1px solid rgba(0, 0, 0, 0.359);
+        border: 1px solid var(--border-color);
         border-radius: 5px;
         @include flex(row, center, center, 0);
         flex-wrap: wrap;
         grid-column: 1/3;
+        background-color: var(--bg-secondary);
+        color: var(--text-primary);
 
         span {
           font-size: 0.8rem;
