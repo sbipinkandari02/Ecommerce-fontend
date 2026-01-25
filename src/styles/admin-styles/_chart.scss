@@ -1,9 +1,11 @@
 .chart-container {
-  background-color: white;
+  background-color: var(--bg-primary);
   padding: 4rem;
   overflow-y: auto;
+  color: var(--text-primary);
   > h1 {
     margin: 0 0 5rem 2rem;
+    color: var(--text-primary);
   }
   > section {
     width: 80%;
@@ -20,6 +22,7 @@
       margin: 2rem 0;
       text-align: center;
       @include heading(2px);
+      color: var(--text-primary);
     }
   }
 }

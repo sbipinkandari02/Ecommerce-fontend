@@ -5,92 +5,14 @@ import { LuShieldCheck } from "react-icons/lu";
 import videoCover from "../assets/videos/cover.mp4"; 
 import { Skeleton } from "../components/loader";
 import ProductCard from "../components/product-card";
+import CommonSlider from "../components/common-slider";
 import toast from "react-hot-toast";
 import { useLatestProductsQuery } from "../redux/api/productAPI";
 import { CartItem } from "../types/types";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/reducer/cartReducer";
-
-const clients = [
-  {
-    src: "https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg",
-    alt: "react",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg",
-    alt: "node",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/mongodb/mongodb-ar21.svg",
-    alt: "mongodb",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/expressjs/expressjs-ar21.svg",
-    alt: "express",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/js_redux/js_redux-ar21.svg",
-    alt: "redux",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-ar21.svg",
-    alt: "typescript",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/sass-lang/sass-lang-ar21.svg",
-    alt: "sass",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/firebase/firebase-ar21.svg",
-    alt: "firebase",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/figma/figma-ar21.svg",
-    alt: "figma",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/github/github-ar21.svg",
-    alt: "github",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/docker/docker-ar21.svg",
-    alt: "Docker",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/kubernetes/kubernetes-ar21.svg",
-    alt: "Kubernetes",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/nestjs/nestjs-ar21.svg",
-    alt: "Nest.js",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/graphql/graphql-ar21.svg",
-    alt: "GraphQL",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/jestjsio/jestjsio-ar21.svg",
-    alt: "Jest",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/redis/redis-ar21.svg",
-    alt: "Redis",
-  },
-
-  {
-    src: "https://www.vectorlogo.zone/logos/postgresql/postgresql-ar21.svg",
-    alt: "PostgreSQL",
-  },
-  {
-    src: "https://www.vectorlogo.zone/logos/jenkins/jenkins-ar21.svg",
-    alt: "Jenkins",
-  },
-];
+import { banners, clients } from "../utils/data";
+import CategoriesSection from "./categories";
 
 const services = [
   {
@@ -131,14 +53,43 @@ const Home = () => {
   return (
     <>
       <div className="home">
-        <section></section>
+        <CategoriesSection />
+        <section className="hero-slider">
+          <CommonSlider
+            items={banners}
+            itemsPerSlide={1}
+            renderItem={(banner) => (
+              <div className="banner-slide" key={banner.id}>
+                <img src={banner.src} alt={banner.alt} />
+                {banner.text && (
+                  <div className="banner-text">
+                    <h1>{banner.text.title}</h1>
+                    <p>{banner.text.subtitle}</p>
+                    {banner.text.cta && (
+                      <Link to={banner.text.link} className="hero-btn">
+                        {banner.text.cta}
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+            containerClassName="common-slider-container hero-slider hero-mode"
+            itemClassName="slider-item hero-slider-item"
+            showIndicators
+            showNavButtons={false}
+            autoPlay={true}
+            autoPlayInterval={5000}
+          />
+        </section>
+
         <h1>
           Latest Products
           <Link to="/search" className="findmore">
             More
           </Link>
         </h1>
-         <main>
+        <main>
           {isLoading ? (
             <>
               {Array.from({ length: 6 }, (_, i) => (
@@ -168,14 +119,9 @@ const Home = () => {
         <div className="cover-video-overlay"></div>
         <video autoPlay loop muted src={videoCover} />
         <div className="cover-video-content">
-          <h2>
-            Fashion
-          </h2>
+          <h2>Fashion</h2>
           {coverMessage.map((el, i) => (
-            <span
-              key={i}>
-              {el}{" "}
-            </span>
+            <span key={i}>{el} </span>
           ))}
         </div>
         <span>
@@ -185,20 +131,21 @@ const Home = () => {
 
       <article className="our-clients">
         <div>
-          <h2>Our Clients</h2>
-          <div>
-            {clients.map((client, i) => (
-              <img
-                src={client.src}
-                alt={client.alt}
-                key={i}
-              />
-            ))}
-          </div>
-
-          <p>
-            Trusted By 100+ Companies in 30+ countries
-          </p>
+          <h2>Our Tech Stack & Partners</h2>
+          <CommonSlider
+            items={clients}
+            itemsPerSlide={6}
+            renderItem={(client) => (
+              <div className="client-item">
+                <img src={client.src} alt={client.alt} />
+              </div>
+            )}
+            showIndicators={true}
+            showNavButtons={true}
+            containerClassName="common-slider-container clients-slider"
+            itemClassName="slider-item client-slider-item"
+          />
+          <p>Trusted By 100+ Companies in 30+ countries</p>
         </div>
       </article>
 
@@ -216,8 +163,8 @@ const Home = () => {
             <li key={i}>
               <div>{service.icon}</div>
               <section>
-                <h3>{service.title}Y</h3>
-                <p>{service.title}</p>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
               </section>
             </li>
           ))}

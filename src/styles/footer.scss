@@ -1,0 +1,113 @@
+.footer {
+  background-color: #111;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  padding: 5rem 5% 2rem;
+  position: relative;
+
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2.5rem;
+    max-width: 1367px;
+    margin: auto;
+
+    .footer-section {
+      h3,
+      h4 {
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #ccc;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 0.8rem;
+
+          a {
+            color: #ccc;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.3s;
+
+            &:hover {
+              color: #1850b9; // Accent color
+            }
+          }
+        }
+      }
+
+      &.newsletter {
+        form.newsletter-form {
+          display: flex;
+          gap: 0.5rem;
+          margin-top: 1rem;
+
+          input {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+          }
+
+          button {
+            background-color: #1850b9;
+            color: #111;
+            font-weight: 700;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+
+            &:hover {
+              background-color: #1850b9;
+            }
+          }
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 1rem;
+          margin-top: 1.5rem;
+
+          a {
+            color: #ccc;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+
+            &:hover {
+              color: #1850b9;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 5% 2rem;
+
+    .footer-container {
+      gap: 2rem;
+    }
+  }
+}

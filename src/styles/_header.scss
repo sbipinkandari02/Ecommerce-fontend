@@ -1,20 +1,126 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
-  position: relative;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 999;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &.dark-mode {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    
+    .theme-toggle {
+      color: #fbbf24;
+    }
+
+    .user-dropdown {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      
+      .dropdown-item {
+        color: var(--text-secondary);
+        border-color: var(--border-color);
+        
+        &:hover {
+          background-color: var(--bg-primary);
+        }
+      }
+
+      .logout-button {
+        border-top: 1px solid var(--border-color);
+        color: #ff6b6b;
+      }
+    }
+  }
 
   a, button {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
     background: none;
     border: none;
     cursor: pointer;
     color: inherit;
+    transition: all 0.3s ease;
   }
 
+  /* Navigation Links Container */
+  .nav-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+
+    .nav-link-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .nav-link {
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+
+        &.active {
+          color: var(--accent-color);
+          font-weight: 600;
+        }
+
+        &:hover {
+          color: var(--text-primary);
+        }
+      }
+
+      /* Active Indicator - Animated Line */
+      .active-indicator {
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--accent-color);
+        border-radius: 1px;
+        box-shadow: 0 0 8px var(--accent-color);
+        opacity: 0.7;
+      }
+    }
+  }
+
+  /* Header Actions - Right side icons */
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .header-icon {
+      font-size: 1.2rem;
+      padding: 0.4rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+
+      &:hover {
+        background: var(--shadow-light);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  /* Cart Icon with Badge */
   .cart-icon-wrapper {
     position: relative;
 
@@ -25,40 +131,60 @@
       background-color: #e11d48;
       color: #fff;
       font-size: 0.65rem;
-      font-weight: 600;
+      font-weight: 700;
       min-width: 18px;
       height: 18px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      animation: pulse 2s infinite;
     }
   }
 
+  /* Theme Toggle Button */
+  .theme-toggle {
+    font-size: 1.1rem;
+    padding: 0.4rem;
+    border-radius: 6px;
+    color: #666;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: #fbbf24;
+      transform: rotate(20deg);
+    }
+  }
+
+  /* User Dropdown */
   .user-dropdown-wrapper {
     position: relative;
 
     .user-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       font-size: 1.2rem;
-      padding: 0;
-      margin: 0;
+      padding: 0.4rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
     }
 
     .user-dropdown {
       position: absolute;
       top: 120%;
       right: 0;
-      background: #fff;
+      background: var(--bg-secondary);
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px var(--shadow-medium);
       min-width: 160px;
       z-index: 1000;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      border: 1px solid var(--border-color);
 
       .dropdown-item {
         display: flex;
@@ -66,38 +192,81 @@
         gap: 0.5rem;
         padding: 0.6rem 1rem;
         font-size: 0.9rem;
-        color: #333;
+        color: var(--text-primary);
         background: transparent;
         border: none;
         cursor: pointer;
         text-decoration: none;
+        transition: all 0.2s ease;
 
         &:hover {
-          background-color: #f5f5f5;
+          background-color: var(--bg-primary);
+          padding-left: 1.2rem;
         }
       }
 
       .logout-button {
-        border-top: 1px solid #eee;
+        border-top: 1px solid var(--border-color);
         font-weight: 500;
         color: #e11d48;
+
+        &:hover {
+          background-color: rgba(225, 29, 72, 0.15);
+        }
       }
     }
   }
 }
 
-.cart-badge {
-  position: absolute;
-  top: -6px;
-  right: -10px;
-  background-color: #e11d48;
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 600;
-  min-width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Pulse Animation for Cart Badge */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(225, 29, 72, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+  }
 }
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header {
+    padding: 1rem 1.5rem;
+
+    .nav-links-wrapper {
+      gap: 1.5rem;
+    }
+
+    .header-actions {
+      gap: 1rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 0.75rem 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+
+    .nav-links-wrapper {
+      display: none;
+    }
+
+    .header-actions {
+      gap: 0.75rem;
+
+      .header-icon {
+        font-size: 1rem;
+      }
+    }
+
+    .theme-toggle {
+      font-size: 1rem;
+    }
+  }
+}
+

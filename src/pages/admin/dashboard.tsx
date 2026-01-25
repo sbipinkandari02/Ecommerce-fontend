@@ -2,6 +2,7 @@ import { BiMaleFemale } from "react-icons/bi";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import { BarChart, DoughnutChart } from "../../components/admin/Charts";
 import Table from "../../components/admin/DashboardTable";
@@ -30,36 +31,70 @@ const Dashboard = () => {
           <Skeleton length={20} />
         ) : (
           <>
-            <section className="widget-container">
-              <WidgetItem
-                percent={stats.changePercent.revenue}
-                amount={true}
-                value={stats.count.revenue}
-                heading="Revenue"
-                color="rgb(0, 115, 255)"
-              />
-              <WidgetItem
-                percent={stats.changePercent.user}
-                value={stats.count.user}
-                color="rgb(0 198 202)"
-                heading="Users"
-              />
-              <WidgetItem
-                percent={stats.changePercent.order}
-                value={stats.count.order}
-                color="rgb(255 196 0)"
-                heading="Transactions"
-              />
+            <motion.section 
+              className="widget-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <WidgetItem
+                  percent={stats.changePercent.revenue}
+                  amount={true}
+                  value={stats.count.revenue}
+                  heading="Revenue"
+                  color="rgb(0, 115, 255)"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+              >
+                <WidgetItem
+                  percent={stats.changePercent.user}
+                  value={stats.count.user}
+                  color="rgb(0 198 202)"
+                  heading="Users"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+              >
+                <WidgetItem
+                  percent={stats.changePercent.order}
+                  value={stats.count.order}
+                  color="rgb(255 196 0)"
+                  heading="Transactions"
+                />
+              </motion.div>
 
-              <WidgetItem
-                percent={stats.changePercent.product}
-                value={stats.count.product}
-                color="rgb(76 0 255)"
-                heading="Products"
-              />
-            </section>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+              >
+                <WidgetItem
+                  percent={stats.changePercent.product}
+                  value={stats.count.product}
+                  color="rgb(76 0 255)"
+                  heading="Products"
+                />
+              </motion.div>
+            </motion.section>
 
-            <section className="graph-container">
+            <motion.section 
+              className="graph-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               <div className="revenue-chart">
                 <h2>Revenue & Transaction</h2>
                 <BarChart
@@ -73,27 +108,48 @@ const Dashboard = () => {
                 />
               </div>
 
-              <div className="dashboard-categories">
+              <motion.div 
+                className="dashboard-categories"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
                 <h2>Inventory</h2>
 
                 <div>
-                  {stats.categoryCount.map((i) => {
+                  {stats.categoryCount.map((i, index) => {
                     const [heading, value] = Object.entries(i)[0];
                     return (
-                      <CategoryItem
+                      <motion.div
                         key={heading}
-                        value={value}
-                        heading={heading}
-                        color={`hsl(${value * 4}, ${value}%, 50%)`}
-                      />
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
+                      >
+                        <CategoryItem
+                          value={value}
+                          heading={heading}
+                          color={`hsl(${value * 4}, ${value}%, 50%)`}
+                        />
+                      </motion.div>
                     );
                   })}
                 </div>
-              </div>
-            </section>
+              </motion.div>
+            </motion.section>
 
-            <section className="transaction-container">
-              <div className="gender-chart">
+            <motion.section 
+              className="transaction-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <motion.div 
+                className="gender-chart"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+              >
                 <h2>Gender Ratio</h2>
                 <DoughnutChart
                   labels={["Female", "Male"]}
@@ -107,9 +163,15 @@ const Dashboard = () => {
                 <p>
                   <BiMaleFemale />
                 </p>
-              </div>
-              <Table data={stats.latestTransaction} />
-            </section>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <Table data={stats.latestTransaction} />
+              </motion.div>
+            </motion.section>
           </>
         )}
       </main>
@@ -132,18 +194,35 @@ const WidgetItem = ({
   color,
   amount = false,
 }: WidgetItemProps) => (
-  <article className="widget">
+  <motion.article 
+    className="widget"
+    whileHover={{ 
+      y: -5, 
+      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.15)" 
+    }}
+    transition={{ duration: 0.3 }}
+  >
     <div className="widget-info">
       <p>{heading}</p>
       <h4>{amount ? `₹${value}` : value}</h4>
       {percent > 0 ? (
-        <span className="green">
+        <motion.span 
+          className="green"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <HiTrendingUp /> +{`${percent > 10000 ? 9999 : percent}%`}
-        </span>
+        </motion.span>
       ) : (
-        <span className="red">
+        <motion.span 
+          className="red"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+        >
           <HiTrendingDown /> {`${percent < -10000 ? -9999 : percent}%`}
-        </span>
+        </motion.span>
       )}
     </div>
 
@@ -156,16 +235,19 @@ const WidgetItem = ({
       )`,
       }}
     >
-      <span
+      <motion.span
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
         style={{
           color,
         }}
       >
         {percent > 0 && `${percent > 10000 ? 9999 : percent}%`}
         {percent < 0 && `${percent < -10000 ? -9999 : percent}%`}
-      </span>
+      </motion.span>
     </div>
-  </article>
+  </motion.article>
 );
 
 interface CategoryItemProps {
@@ -175,18 +257,30 @@ interface CategoryItemProps {
 }
 
 const CategoryItem = ({ color, value, heading }: CategoryItemProps) => (
-  <div className="category-item">
+  <motion.div 
+    className="category-item"
+    whileHover={{ paddingLeft: "1.2rem" }}
+    transition={{ duration: 0.3 }}
+  >
     <h5>{heading}</h5>
     <div>
-      <div
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: `${value}%` }}
+        transition={{ duration: 0.6, delay: 0.3 }}
         style={{
           backgroundColor: color,
-          width: `${value}%`,
         }}
-      ></div>
+      ></motion.div>
     </div>
-    <span>{value}%</span>
-  </div>
+    <motion.span
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      {value}%
+    </motion.span>
+  </motion.div>
 );
 
 export default Dashboard;

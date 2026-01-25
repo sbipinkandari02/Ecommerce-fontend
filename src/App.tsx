@@ -1,17 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import Loader from "./components/loader";
 import Header from "./components/header";
+import Footer from "./components/footer";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "./firebase";
-// import { getUser } from "./redux/api/userAPI";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
-// import { RootState } from "./redux/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { getUser } from "./redux/api/userAPI";
 import { RootState } from "./redux/store";
 import ProtectedRoute from "./components/protected-route";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
@@ -40,10 +40,12 @@ const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
 
-const App = () => {
+const AppContent = () => {
   const { user, loading } = useSelector(
     (state: RootState) => state.userReducer
   );
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/login";
 
   const dispatch = useDispatch();
 
@@ -59,9 +61,9 @@ const App = () => {
   return loading ? (
     <Loader />
   ) : (
-    <Router>
-      {/* Header */}
-      <Header user={user} />
+    <>
+      {/* Header - Hide on Login Page */}
+      {!isLoginPage && <Header user={user} />}
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -121,8 +123,19 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      {!isLoginPage && <Footer />}
       <Toaster position="bottom-center" />
-    </Router>
+    </>
+  );
+};
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </ThemeProvider>
   );
 };
 
