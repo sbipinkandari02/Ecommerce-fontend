@@ -4,13 +4,15 @@
   font-family: "Poppins", sans-serif;
   padding: 5rem 5% 2rem;
   position: relative;
+  flex-shrink: 0; // prevents collapsing in flex layouts
+  width: 100%;
 
   .footer-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2.5rem;
     max-width: 1367px;
-    margin: auto;
+    margin: 0 auto;
 
     .footer-section {
       h3,
@@ -61,7 +63,7 @@
 
           button {
             background-color: #1850b9;
-            color: #111;
+            color: #fff;
             font-weight: 700;
             border: none;
             padding: 0.6rem 1.2rem;
@@ -70,7 +72,7 @@
             transition: all 0.3s;
 
             &:hover {
-              background-color: #1850b9;
+              background-color: #0f3a91;
             }
           }
         }
@@ -100,7 +102,7 @@
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.9rem;
-    color: #333;
+    color: #ccc;
   }
 
   @media (max-width: 768px) {

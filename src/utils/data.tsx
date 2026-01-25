@@ -1,3 +1,4 @@
+import cover from "../assets/cover.png";
 const clients = [
   {
     src: "https://www.vectorlogo.zone/logos/reactjs/reactjs-ar21.svg",
@@ -82,7 +83,7 @@ const clients = [
 const banners = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=1350&q=80",
+    src: cover,
     alt: "Fashion Banner 1",
     text: {
       title: "Upgrade Your Style",
@@ -93,7 +94,7 @@ const banners = [
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1350&q=80",
+    src: cover,
     alt: "Fashion Banner 2",
     text: {
       title: "New Arrivals",
@@ -104,7 +105,7 @@ const banners = [
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1495121605193-b116b5b09a6f?auto=format&fit=crop&w=1350&q=80",
+    src: cover,
     alt: "Fashion Banner 3",
     text: {
       title: "Exclusive Collection",

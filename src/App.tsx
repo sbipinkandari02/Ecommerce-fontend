@@ -57,6 +57,7 @@ const AppContent = () => {
       } else dispatch(userNotExist());
     });
   }, []);
+ const hideHeaderFooter = location.pathname.startsWith("/admin") || location.pathname === "/login";
 
   return loading ? (
     <Loader />
@@ -123,7 +124,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-      {!isLoginPage && <Footer />}
+      {!hideHeaderFooter && <Footer />}
       <Toaster position="bottom-center" />
     </>
   );
